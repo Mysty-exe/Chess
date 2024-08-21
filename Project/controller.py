@@ -9,11 +9,11 @@ class GameController:
         pygame.init()
 
         self.title = constants.TITLE
-        # self.icon = pygame.image.load(constants.ICON)
+        self.icon = pygame.image.load(constants.ICON)
         pygame.display.set_caption(self.title)
-        # pygame.display.set_icon(self.icon)
+        pygame.display.set_icon(self.icon)
 
-        self.game_state = "Game"
+        self.game_state = "Menu"
         self.game = instance.GameInstance()
 
         self.fps = constants.FPS
@@ -27,6 +27,9 @@ class GameController:
             for event in events:
                 if event.type == pygame.QUIT:
                     self.game_state = 'Quit'
+
+            if self.game_state == 'Menu':
+                self.game_state = self.game.main_menu(self.dt, self.game_state, events)
 
             if self.game_state == 'Game':
                 self.game_state = self.game.run(self.dt, self.game_state, events)

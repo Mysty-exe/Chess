@@ -36,3 +36,26 @@ def getLocation(loc):
     row = 8 if loc[1] == "1" else row
 
     return [column, row]
+
+def getChessPos(loc):
+    column = ""
+    row = ""
+    column = "a" if loc[0] == 1 else column
+    column = "b" if loc[0] == 2 else column
+    column = "c" if loc[0] == 3 else column
+    column = "d" if loc[0] == 4 else column
+    column = "e" if loc[0] == 5 else column
+    column = "f" if loc[0] == 6 else column
+    column = "g" if loc[0] == 7 else column
+    column = "h" if loc[0] == 8 else column
+
+    row = "8" if loc[1] == 1 else row
+    row = "7" if loc[1] == 2 else row
+    row = "6" if loc[1] == 3 else row
+    row = "5" if loc[1] == 4 else row
+    row = "4" if loc[1] == 5 else row
+    row = "3" if loc[1] == 6 else row
+    row = "2" if loc[1] == 7 else row
+    row = "1" if loc[1] == 8 else row
+
+    return f"{column}{row}"
