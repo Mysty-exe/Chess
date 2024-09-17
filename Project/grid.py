@@ -8,7 +8,7 @@ class Grid:
         self.x, self.y = x, y
         self.layout = pygame.Rect(self.x - 5, self.y - 5, 522, 522)
 
-    def drawLayout(self, display, moves, selected, hovering, mouse):
+    def drawLayout(self, display, moves, selected, hovering, mouse, turn, check):
         x, y = self.x, self.y
 
         hovering = None
@@ -17,17 +17,29 @@ class Grid:
             for col in range(1, 9):
                 rect = pygame.Rect(x, y, 64, 64)
                 if row % 2 != 0:
-                    if col % 2 != 0:
-                        pygame.draw.rect(display, constants.COLOURS["light purple"], rect)
+                    if not check:
+                        if col % 2 != 0:
+                            pygame.draw.rect(display, constants.COLOURS["light purple"], rect)
+                        else:
+                            pygame.draw.rect(display, constants.COLOURS["purple"], rect)
                     else:
-                        pygame.draw.rect(display, constants.COLOURS["purple"], rect)
+                        if col % 2 != 0:
+                            pygame.draw.rect(display, constants.COLOURS["light red"], rect)
+                        else:
+                            pygame.draw.rect(display, constants.COLOURS["red"], rect)
                 else:
-                    if col % 2 != 0:
-                        pygame.draw.rect(display, constants.COLOURS["purple"], rect)
+                    if not check:
+                        if col % 2 != 0:
+                            pygame.draw.rect(display, constants.COLOURS["purple"], rect)
+                        else:
+                            pygame.draw.rect(display, constants.COLOURS["light purple"], rect)
                     else:
-                        pygame.draw.rect(display, constants.COLOURS["light purple"], rect)
+                        if col % 2 != 0:
+                            pygame.draw.rect(display, constants.COLOURS["red"], rect)
+                        else:
+                            pygame.draw.rect(display, constants.COLOURS["light red"], rect)
 
-                if selected != None:
+                if selected != None and turn:
                     if [col, row] in moves:
                         pygame.draw.circle(display, constants.COLOURS["white"], (x + 32, y + 32), 8, 8)
                         if rect.collidepoint(mouse):
@@ -51,7 +63,7 @@ class Grid:
 
         if selected != None:
             display.blit(selected.piece, selected.piece_rect)
-        
+
     def allowed(self, pieces, square):
         for piece in pieces:
             if getLocation(piece.location) == square:
