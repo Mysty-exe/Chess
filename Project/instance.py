@@ -307,7 +307,6 @@ class GameInstance():
             self.selectedPiece.piece_rect.x += self.mouseIncrement[0]
             self.selectedPiece.piece_rect.y += self.mouseIncrement[1]
             self.possibleMoves = self.selectedPiece.possibleMoves
-            print(self.possibleMoves)
 
         self.showPiecesTaken()
 
